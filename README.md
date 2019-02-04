@@ -1,145 +1,42 @@
-# eimprovement.app
+# Overview
 
-This project was generated with [ngX-Rocket](https://github.com/ngx-rocket/generator-ngx-rocket/)
-version 5.3.0
+Thank you for taking the time to take our test. Your will be using this starter app, along with our API, to create a full stack application that will allow users to read, update, create and delete pets.
 
-# Getting started
+In case you are interested, our API uses the popular Pet Store data set as its source for data.
 
-1. Go to project folder and install dependencies:
+- This exercise is intended to be an example of a real world problem. Please use any and all resources at your disposal including, but not limited to, the internet, friends/colleagues, etc.
 
-```sh
-npm install
-```
+- You will be expected to demonstrate coding skills in alignment with industry best practices. Please focus on what you would consider "the right way" to write / design an application.
 
-2. Launch development server, and open `localhost:4200` in your browser:
+- Do not hesitate to ask questions. We are available via devtest@eimprovement.com
 
-```sh
-npm start
-```
+- Upon completion, you will be expected to present your application, via a pull request, to the eImprovement team. Be prepared to explain the thought process behind your code. Additionally, we would be interested in understanding any improvements that you might suggest.
 
-# Project structure
+- There are no tricks or "gotchas" in this code sample. If you are having problems connecting or see anything else strange, please don't hesitate to reach out to us.
 
-```
-dist/                        web app production build
-docs/                        project docs and coding guides
-e2e/                         end-to-end tests
-src/                         project source code
-|- app/                      app components
-|  |- core/                  core module (singleton services and single-use components)
-|  |- shared/                shared module  (common components, directives and pipes)
-|  |- app.component.*        app root component (shell)
-|  |- app.module.ts          app root module definition
-|  |- app-routing.module.ts  app routes
-|  +- ...                    additional modules and components
-|- assets/                   app assets (images, fonts, sounds...)
-|- environments/             values for various build environments
-|- theme/                    app global scss variables and theme
-|- translations/             translations files
-|- index.html                html entry point
-|- main.scss                 global style entry point
-|- main.ts                   app entry point
-|- polyfills.ts              polyfills needed by Angular
-+- test.ts                   unit tests entry point
-reports/                     test and coverage reports
-proxy.conf.js                backend proxy configuration
-```
+# Setup
 
-# Main tasks
+## API
 
-Task automation is based on [NPM scripts](https://docs.npmjs.com/misc/scripts).
+1. Signup for access to our API here: https://dev-test.portal.azure-api.net/signup/
+2. You should receive an account confirmation email. Click the link in that email.
+3. Once you have confirmed your account, use this link to subscribe to the Petstore API: https://dev-test.portal.azure-api.net/products/unlimited
+4. You can see your API key here: https://dev-test.portal.azure-api.net/developer
 
-| Task                                            | Description                                                                                                      |
-| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `npm start`                                     | Run development server on `http://localhost:4200/`                                                               |
-| `npm run serve:sw`                              | Run test server on `http://localhost:4200/` with service worker enabled                                          |
-| `npm run build [-- --configuration=production]` | Lint code and build web app for production (with [AOT](https://angular.io/guide/aot-compiler)) in `dist/` folder |
-| `npm test`                                      | Run unit tests via [Karma](https://karma-runner.github.io) in watch mode                                         |
-| `npm run test:ci`                               | Lint code and run unit tests once for continuous integration                                                     |
-| `npm run e2e`                                   | Run e2e tests using [Protractor](http://www.protractortest.org)                                                  |
-| `npm run lint`                                  | Lint code                                                                                                        |
-| `npm run translations:extract`                  | Extract strings from code and templates to `src/app/translations/template.json`                                  |
-| `npm run docs`                                  | Display project documentation                                                                                    |
-| `npm run prettier`                              | Automatically format all `.ts`, `.js` & `.scss` files                                                            |
+# The Test
 
-When building the application, you can specify the target configuration using the additional flag
-`--configuration <name>` (do not forget to prepend `--` to pass arguments to npm scripts).
+We need you to build an application
 
-The default build configuration is `prod`.
+1. Use the "Find Pets by status" endpoint to display a list of pets to the user: https://dev-test.azure-api.net/petstore/pet/findByStatus?status={status}
+2. Use the "Update an existing pet" endpoint to allow users to flag pets as being sold in the component you built in step 1.
+3. Use the "Add a new pet to the store" endpoint to allow users to create new pets.
+4. Use the "Deletes a pet" endpoint to allows users to delete pets
 
-## Development server
+# Resources
 
-Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change
-any of the source files.
-You should not use `ng serve` directly, as it does not use the backend proxy configuration by default.
+1. Use the developer portal to learn about our endpoints.
 
-## Code scaffolding
+- https://dev-test.portal.azure-api.net/docs/services/petstore/
 
-Run `npm run generate -- component <name>` to generate a new component. You can also use
-`npm run generate -- directive|pipe|service|class|module`.
-
-If you have installed [angular-cli](https://github.com/angular/angular-cli) globally with `npm install -g @angular/cli`,
-you can also use the command `ng generate` directly.
-
-## Additional tools
-
-Tasks are mostly based on the `angular-cli` tool. Use `ng help` to get more help or go check out the
-[Angular-CLI README](https://github.com/angular/angular-cli).
-
-## Code formatting
-
-All `.ts`, `.js` & `.scss` files in this project are formatted automatically using [Prettier](https://prettier.io),
-and enforced via the `test:ci` script.
-
-A pre-commit git hook has been configured on this project to automatically format staged files, using
-(pretty-quick)[https://github.com/azz/pretty-quick], so you don't have to care for it.
-
-You can also force code formatting by running the command `npm run prettier`.
-
-# What's in the box
-
-The app template is based on [HTML5](http://whatwg.org/html), [TypeScript](http://www.typescriptlang.org) and
-[Sass](http://sass-lang.com). The translation files use the common [JSON](http://www.json.org) format.
-
-#### Tools
-
-Development, build and quality processes are based on [angular-cli](https://github.com/angular/angular-cli) and
-[NPM scripts](https://docs.npmjs.com/misc/scripts), which includes:
-
-- Optimized build and bundling process with [Webpack](https://webpack.github.io)
-- [Development server](https://webpack.github.io/docs/webpack-dev-server.html) with backend proxy and live reload
-- Cross-browser CSS with [autoprefixer](https://github.com/postcss/autoprefixer) and
-  [browserslist](https://github.com/ai/browserslist)
-- Asset revisioning for [better cache management](https://webpack.github.io/docs/long-term-caching.html)
-- Unit tests using [Jasmine](http://jasmine.github.io) and [Karma](https://karma-runner.github.io)
-- End-to-end tests using [Protractor](https://github.com/angular/protractor)
-- Static code analysis: [TSLint](https://github.com/palantir/tslint), [Codelyzer](https://github.com/mgechev/codelyzer),
-  [Stylelint](http://stylelint.io) and [HTMLHint](http://htmlhint.com/)
-- Local knowledgebase server using [Hads](https://github.com/sinedied/hads)
-- Automatic code formatting with [Prettier](https://prettier.io)
-
-#### Libraries
-
-- [Angular](https://angular.io)
-- [Angular Material](https://material.angular.io)
-- [Angular Flex Layout](https://github.com/angular/flex-layout)
-- [Material Icons](https://material.io/icons/)
-- [RxJS](http://reactivex.io/rxjs)
-- [ngx-translate](https://github.com/ngx-translate/core)
-- [Lodash](https://lodash.com)
-
-#### Coding guides
-
-- [Angular](docs/coding-guides/angular.md)
-- [TypeScript](docs/coding-guides/typescript.md)
-- [Sass](docs/coding-guides/sass.md)
-- [HTML](docs/coding-guides/html.md)
-- [Unit tests](docs/coding-guides/unit-tests.md)
-- [End-to-end tests](docs/coding-guides/e2e-tests.md)
-
-#### Other documentation
-
-- [I18n guide](docs/i18n.md)
-- [Working behind a corporate proxy](docs/corporate-proxy.md)
-- [Updating dependencies and tools](docs/updating.md)
-- [Using a backend proxy for development](docs/backend-proxy.md)
-- [Browser routing](docs/routing.md)
+2. You are welcome to use any resources that are available to you.
+3. You can email us any questions at devtest@eimprovement.com
