@@ -1,6 +1,6 @@
 # Overview
 
-Thank you for taking the time to take our test. Your will be using this starter app, along with our API, to create a full stack application that will allow users to read, update, create and delete pets.
+Thank you for taking the time to take our test. You will be using this starter app, along with our API, to create a full stack application that will allow users to read, update, create and delete pets.
 
 In case you are interested, our API uses the popular Pet Store data set as its source for data.
 
@@ -25,7 +25,7 @@ In case you are interested, our API uses the popular Pet Store data set as its s
 
 We need you to build an application
 
-1. Use the "Find Pets by status" endpoint to display a list of pets to the user: https://dev-test.azure-api.net/petstore/pet/findByStatus?status={status}
+1. Use the "Find Pets by status" endpoint to display a list of pets to the user
 2. Use the "Update an existing pet" endpoint to allow users to flag pets as being sold in the component you built in step 1.
 3. Use the "Add a new pet to the store" endpoint to allow users to create new pets.
 4. Use the "Deletes a pet" endpoint to allows users to delete pets
