@@ -14,9 +14,7 @@ In case you are interested, our API uses the popular Pet Store data set as its s
 
 - There are no tricks or "gotchas" in this code sample. If you are having problems connecting or see anything else strange, please don't hesitate to reach out to us.
 
-# Setup
-
-## API
+# API Setup
 
 1. Signup for access to our API here: https://dev-test.portal.azure-api.net/signup/
 2. You should receive an account confirmation email. Click the link in that email.
