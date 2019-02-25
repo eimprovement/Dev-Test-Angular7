@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
-import { InjectionToken, NgModule, Optional, SkipSelf } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ApiPrefixInterceptor } from './http/api-prefix.interceptor';
@@ -10,7 +10,7 @@ import { HttpCacheService } from './http/http-cache.service';
 import { HttpService } from './http/http.service';
 import { I18nService } from './i18n.service';
 import { RouteReusableStrategy } from './route-reusable-strategy';
-export const HTTP_NOINTERCEPTOR = new InjectionToken('http_nointerceptor');
+
 @NgModule({
   imports: [CommonModule, HttpClientModule, TranslateModule, RouterModule],
   providers: [
@@ -26,13 +26,6 @@ export const HTTP_NOINTERCEPTOR = new InjectionToken('http_nointerceptor');
     {
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy
-    },
-    {
-      provide: HTTP_NOINTERCEPTOR,
-      deps: [HttpBackend],
-      useFactory: (handler: HttpBackend) => {
-        return new HttpClient(handler);
-      }
     }
   ]
 })
