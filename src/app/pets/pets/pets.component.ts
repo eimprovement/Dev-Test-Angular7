@@ -42,16 +42,18 @@ export class PetsComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(take(1))
       .subscribe(data => {
-        data.status = 1;
-        this.petsService
-          .addPet(data)
-          .pipe(take(1))
-          .subscribe(response => {
-            const dataTable: Pet[] = this.dataSource.data;
-            dataTable.push(response);
-            this.dataSource.data = [...dataTable];
-            this.openConfirmation(data.name + ' added', 'Close');
-          });
+        if (data) {
+          data.status = 1;
+          this.petsService
+            .addPet(data)
+            .pipe(take(1))
+            .subscribe(response => {
+              const dataTable: Pet[] = this.dataSource.data;
+              dataTable.push(response);
+              this.dataSource.data = [...dataTable];
+              this.openConfirmation(data.name + ' added', 'Close');
+            });
+        }
       });
   }
   applyFilter(filterValue: string): void {
