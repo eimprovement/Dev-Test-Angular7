@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatPaginator, MatSnackBar, MatSort, MatTableDataSource } from '@angular/material';
 import { Pet } from '@app/shared/models';
 import { PetsService } from '@app/shared/services/pets.service';
-import { Subscription } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
 import { AddPetComponent } from '../add-pet/add-pet.component';
 @Component({
@@ -20,18 +19,14 @@ export class PetsComponent implements OnInit, OnDestroy {
 
   /*  Private Properties */
   private alive = true;
-  private serviceSubs: Subscription[] = [];
-  constructor(private dialog: MatDialog, private petsService: PetsService) {}
+  constructor(private dialog: MatDialog, private petsService: PetsService, private snackBar: MatSnackBar) {}
 
   /*  Life Cycle Hooks */
   ngOnInit(): void {
     this.registeredEvents();
   }
   ngOnDestroy(): void {
-    // Called once, before the instance is destroyed.
-    // Add 'implements OnDestroy' to the class.
     this.alive = false;
-    this.serviceSubs.forEach(s => s.unsubscribe());
   }
 
   /*  Public Methods */
@@ -55,6 +50,7 @@ export class PetsComponent implements OnInit, OnDestroy {
             const dataTable: Pet[] = this.dataSource.data;
             dataTable.push(response);
             this.dataSource.data = [...dataTable];
+            this.openConfirmation(data.name + ' added', 'Close');
           });
       });
   }
@@ -64,6 +60,11 @@ export class PetsComponent implements OnInit, OnDestroy {
     this.dataSource.filter = filterValue;
   }
 
+  openConfirmation(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
   /*  Private Methods */
   private registeredEvents(): void {
     this.petsService
