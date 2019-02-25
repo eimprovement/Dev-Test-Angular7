@@ -6,7 +6,7 @@
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
       </mat-form-field>
-      <button mat-mini-fab id="add-button" matTooltip="Add a new pet">
+      <button mat-mini-fab id="add-button" matTooltip="Add a new pet" (click)="addPet()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -32,7 +32,7 @@
       <!--Category-->
       <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
-        <mat-cell *matCellDef="let pet"> {{ pet.category.name }} </mat-cell>
+        <mat-cell *matCellDef="let pet"> {{ pet.category?.name }} </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
