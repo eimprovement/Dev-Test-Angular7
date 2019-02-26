@@ -35,6 +35,16 @@
         <mat-cell *matCellDef="let pet"> {{ pet.category?.name }} </mat-cell>
       </ng-container>
 
+      <!--Sold-->
+      <ng-container matColumnDef="sold">
+        <mat-header-cell *matHeaderCellDef> Sell </mat-header-cell>
+        <mat-cell *matCellDef="let pet">
+          <button mat-button matTooltip="Sell {{ pet.name }}" (click)="soldPet(pet)">
+            <mat-icon>attach_money</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
       <!--Delete-->
       <ng-container matColumnDef="delete">
         <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>

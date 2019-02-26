@@ -14,7 +14,7 @@ export class PetsComponent implements OnInit, OnDestroy {
   /*  Public Properties */
   dataLoaded = false;
   dataSource: MatTableDataSource<Pet>;
-  displayedColumns: string[] = ['id', 'name', 'category', 'delete'];
+  displayedColumns: string[] = ['id', 'name', 'category', 'sold', 'delete'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -58,11 +58,35 @@ export class PetsComponent implements OnInit, OnDestroy {
       });
   }
 
+  applyFilter(filterValue: string): void {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+  deletePet(pet: Pet) {
+    const dataTable: Pet[] = this.dataSource.data;
+
+    const index = dataTable.indexOf(pet);
+
+    if (index > -1) {
+      dataTable.splice(index, 1);
+    }
+
+    this.dataSource.data = [...dataTable];
+  }
+
+  openConfirmation(message: string, action: string): void {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
+
   removePet(pet: Pet): void {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
+    dialogConfig.autoFocus = false;
     dialogConfig.data = {
       title: 'Delete pet',
       subtitle: 'Are you sure you want to delete ' + pet.name + '?'
@@ -79,17 +103,7 @@ export class PetsComponent implements OnInit, OnDestroy {
             .pipe(take(1))
             .subscribe(
               response => {
-                const dataTable: Pet[] = this.dataSource.data;
-
-                const index = dataTable.indexOf(pet);
-                console.log(index);
-
-                if (index > -1) {
-                  dataTable.splice(index, 1);
-                }
-
-                this.dataSource.data = [...dataTable];
-
+                this.deletePet(pet);
                 this.openConfirmation(pet.name + ' deleted', 'Close');
               },
               err => console.log(err)
@@ -98,17 +112,37 @@ export class PetsComponent implements OnInit, OnDestroy {
       });
   }
 
-  applyFilter(filterValue: string): void {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+  soldPet(pet: Pet): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      title: 'Sell pet',
+      subtitle: 'Are you sure you want to sell ' + pet.name + '?'
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(data => {
+        if (data) {
+          pet.status = 2;
+          this.petsService
+            .updatePet(pet)
+            .pipe(take(1))
+            .subscribe(
+              response => {
+                this.deletePet(pet);
+                this.openConfirmation(response.name + ' sold', 'Close');
+              },
+              err => console.log(err)
+            );
+        }
+      });
   }
 
-  openConfirmation(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000
-    });
-  }
   /*  Private Methods */
   private registeredEvents(): void {
     this.petsService
