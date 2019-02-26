@@ -4,6 +4,7 @@ import { Pet } from '@app/shared/models';
 import { PetsService } from '@app/shared/services/pets.service';
 import { take, takeWhile } from 'rxjs/operators';
 import { AddPetComponent } from '../add-pet/add-pet.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'app-pets',
   templateUrl: './pets.component.html',
@@ -13,7 +14,7 @@ export class PetsComponent implements OnInit, OnDestroy {
   /*  Public Properties */
   dataLoaded = false;
   dataSource: MatTableDataSource<Pet>;
-  displayedColumns: string[] = ['id', 'name', 'category'];
+  displayedColumns: string[] = ['id', 'name', 'category', 'delete'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -56,6 +57,47 @@ export class PetsComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+  removePet(pet: Pet): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      title: 'Delete pet',
+      subtitle: 'Are you sure you want to delete ' + pet.name + '?'
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(data => {
+        if (data) {
+          this.petsService
+            .delete(pet.id)
+            .pipe(take(1))
+            .subscribe(
+              response => {
+                const dataTable: Pet[] = this.dataSource.data;
+
+                const index = dataTable.indexOf(pet);
+                console.log(index);
+
+                if (index > -1) {
+                  dataTable.splice(index, 1);
+                }
+
+                this.dataSource.data = [...dataTable];
+
+                this.openConfirmation(pet.name + ' deleted', 'Close');
+              },
+              err => console.log(err)
+            );
+        }
+      });
+  }
+
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches

@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { HTTP_NOINTERCEPTOR } from '@app/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pet } from '../models';
 
@@ -16,13 +15,13 @@ export class PetsService {
     })
   };
 
-  constructor(@Inject(HTTP_NOINTERCEPTOR) private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   addPet(data: Pet) {
     return this.http.post<Pet>(this.baseURl + 'pet', data, this.httpOptions);
   }
 
-  delete(id: number): Observable<Pet> {
+  delete(id: number): Observable<any> {
     return this.http.delete<any>(this.baseURl + 'pet/' + id, this.httpOptions);
   }
 
