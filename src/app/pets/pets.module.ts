@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@app/material.module';
 import { SharedModule } from '@app/shared';
 import { PipesModule } from '@app/shared/pipes';
@@ -22,8 +21,7 @@ import { PetsComponent } from './pets/pets.component';
     MaterialModule,
     ReactiveFormsModule,
     PipesModule,
-    HttpClientModule,
-    BrowserAnimationsModule
+    HttpClientModule
   ],
   entryComponents: [AddPetComponent, ConfirmDialogComponent]
 })
