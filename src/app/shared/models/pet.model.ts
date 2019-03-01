@@ -1,7 +1,7 @@
 import { Category } from './category.model';
 
 export class Pet {
-  id: number;
+  id: string;
   name: string;
   category: Category;
   photoUrls: string[];
