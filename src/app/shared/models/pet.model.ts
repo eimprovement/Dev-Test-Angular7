@@ -7,4 +7,8 @@ export class Pet {
   photoUrls: string[];
   tags: string[];
   status: string;
+
+  constructor(source: any = {}) {
+    Object.assign(this, source);
+  }
 }
