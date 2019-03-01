@@ -1,4 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '@app/material.module';
 import { AddPetComponent } from './add-pet.component';
 
 describe('AddPetComponent', () => {
@@ -7,7 +11,9 @@ describe('AddPetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AddPetComponent]
+      declarations: [AddPetComponent],
+      imports: [BrowserAnimationsModule, ReactiveFormsModule, MaterialModule],
+      providers: [{ provide: MatDialogRef, useValue: {} }]
     }).compileComponents();
   }));
 
@@ -17,7 +23,7 @@ describe('AddPetComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create add pet', () => {
+  it('should create add pet modal', () => {
     expect(component).toBeTruthy();
   });
 });
