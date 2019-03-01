@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title>Available Pets</mat-card-title>
+  <mat-card-title>Pending Pets</mat-card-title>
 
   <mat-card-content>
     <div>
@@ -11,28 +11,23 @@
       </button>
     </div>
 
-    <!--Loading-->
-    <div *ngIf="!dataLoaded" id="spinner">
-      <mat-progress-spinner color="primary" mode="indeterminate"> </mat-progress-spinner>
-    </div>
-
-    <mat-table [dataSource]="dataSource" matSort *ngIf="dataLoaded">
+    <mat-table [dataSource]="dataSource" matSort>
       <!--ID-->
       <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
         <mat-cell *matCellDef="let pet"> {{ pet.id }} </mat-cell>
       </ng-container>
 
       <!--Name-->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>>
         <mat-cell *matCellDef="let pet"> {{ pet.name }} </mat-cell>
       </ng-container>
 
       <!--Category-->
       <ng-container matColumnDef="category">
-        <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
-        <mat-cell *matCellDef="let pet"> {{ pet.category?.name }} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+        <mat-cell *matCellDef="let pet"> {{ pet.category?.name | noValue }} </mat-cell>
       </ng-container>
 
       <!--Sold-->
@@ -58,7 +53,10 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-
+    <!--Loading-->
+    <div *ngIf="!dataLoaded" id="spinner">
+      <mat-progress-spinner color="primary" mode="indeterminate"> </mat-progress-spinner>
+    </div>
     <!--Paginator-->
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </mat-card-content>

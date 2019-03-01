@@ -25,8 +25,8 @@ export class PetsService {
     return this.http.delete<any>(this.baseURl + 'pet/' + id, this.httpOptions);
   }
 
-  getAvailablesPets(): Observable<Pet[]> {
-    return this.getPetsByStatus('1');
+  getPendingPets(): Observable<Pet[]> {
+    return this.getPetsByStatus('pending');
   }
 
   getPetsByStatus(status: string): Observable<Pet[]> {

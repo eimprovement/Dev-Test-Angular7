@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PetsComponent } from './pets.component';
 
 describe('PetsComponent', () => {
@@ -18,7 +17,7 @@ describe('PetsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create pets', () => {
     expect(component).toBeTruthy();
   });
 });

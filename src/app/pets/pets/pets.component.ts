@@ -44,7 +44,7 @@ export class PetsComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(data => {
         if (data) {
-          data.status = 1;
+          data.status = 'pending';
           this.petsService
             .addPet(data)
             .pipe(take(1))
@@ -128,7 +128,7 @@ export class PetsComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(data => {
         if (data) {
-          pet.status = 2;
+          pet.status = 'sold';
           this.petsService
             .updatePet(pet)
             .pipe(take(1))
@@ -146,7 +146,7 @@ export class PetsComponent implements OnInit, OnDestroy {
   /*  Private Methods */
   private registeredEvents(): void {
     this.petsService
-      .getAvailablesPets()
+      .getPendingPets()
       .pipe(takeWhile(() => this.alive))
       .subscribe(data => {
         if (data) {
