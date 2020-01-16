@@ -1,0 +1,22 @@
+<p>THE PETS ARE:</p>
+
+<app-loader [isLoading]="isLoading" size="1.5"></app-loader>
+
+<div class="mat-elevation-z8" [hidden]="isLoading">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="id">
+      <th class="letter" mat-header-cell *matHeaderCellDef>ID</th>
+      <td class="letter2" mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th class="letter" mat-header-cell *matHeaderCellDef>Name</th>
+      <td class="letter2" mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20, 30, 50, 200, 500, 1000]" showFirstLastButtons></mat-paginator>
+</div>
