@@ -4,6 +4,14 @@
 
 <div class="mat-elevation-z8" [hidden]="isLoading">
   <button mat-button (click)="addPet()">Add New Pet</button>
+  <div class="flex-container" fxLayoutAlign="flex-end" fxLayout="row" fxLayout.xs="column">
+    <div fxFlex="20%" fxLayoutAlign="flex-end" fxLayout.xs="column">
+      <mat-form-field class="letter">
+        <input type="text" matInput placeholder="Search" (keyup)="onSearch($event.target.value)" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="id">
       <th class="letter" mat-header-cell *matHeaderCellDef>ID</th>

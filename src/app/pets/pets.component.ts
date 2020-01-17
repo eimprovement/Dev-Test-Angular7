@@ -41,6 +41,10 @@ export class PetsComponent implements OnInit {
       });
   }
 
+  onSearch(value: string) {
+    this.dataSource.filter = value;
+  }
+
   addPet() {
     const dialogRef = this.dialog.open(PetFormComponent, {
       data: { name: '' }
@@ -84,7 +88,7 @@ export class PetsComponent implements OnInit {
               this._snackBar.open(`The pet ${pet.name} has been sold successfully.`, 'Done', {
                 duration: this.successMessageDuration
               });
-              //// TODO: refresh the UI list
+              this.deletePetFromDataSource(pet);
             },
             error => {
               this._snackBar.open(this.mapMarkPetAsSoldErrorMessage(pet, error.status), 'Error', {
@@ -114,11 +118,10 @@ export class PetsComponent implements OnInit {
           .pipe(finalize(() => {}))
           .subscribe(
             response => {
-              console.log('Result', result, 'Respone', response);
               this._snackBar.open(`The pet ${pet.name} has been deleted successfully.`, 'Done', {
                 duration: this.successMessageDuration
               });
-              //// TODO: refresh the UI list
+              this.deletePetFromDataSource(pet);
             },
             error => {
               this._snackBar.open(this.mapDeletePetErrorMessage(pet, error.status), 'Error', {
@@ -133,6 +136,15 @@ export class PetsComponent implements OnInit {
   private addPetToDataSource(pet: Pet) {
     const currentDataSource = this.dataSource.data;
     currentDataSource.push(pet);
+    this.dataSource.data = [...currentDataSource];
+  }
+
+  private deletePetFromDataSource(pet: Pet) {
+    const currentDataSource = this.dataSource.data;
+    const index = currentDataSource.indexOf(pet);
+    if (index > -1) {
+      currentDataSource.splice(index, 1);
+    }
     this.dataSource.data = [...currentDataSource];
   }
 
