@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Pet } from './models/pet.interface';
-import { UpdatePetStatus } from './models/update-pet.interface';
+import { Pet } from '../models/pet.interface';
+import { UpdatePetStatus } from '../models/update-pet.interface';
+import { CreatePet } from '../models/create-pet.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,10 @@ export class PetsService {
 
   findAvailablePets(): Observable<Pet[]> {
     return this.findPetsByStatus('available');
+  }
+
+  createPet(pet: CreatePet): Observable<Pet> {
+    return this._httpClient.post<Pet>(`${this.baseURL}/pet`, pet, this.defaultHttpOptions);
   }
 
   markPetAsSold(pet: Pet): Observable<Pet> {

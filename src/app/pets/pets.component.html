@@ -3,6 +3,7 @@
 <app-loader [isLoading]="isLoading" size="1.5"></app-loader>
 
 <div class="mat-elevation-z8" [hidden]="isLoading">
+  <button mat-button (click)="addPet()">Add New Pet</button>
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="id">
       <th class="letter" mat-header-cell *matHeaderCellDef>ID</th>
@@ -15,10 +16,10 @@
     </ng-container>
 
     <ng-container matColumnDef="markAsSold">
-      <th class="letter" mat-header-cell *matHeaderCellDef>Mark as Sold</th>
+      <th class="letter" mat-header-cell *matHeaderCellDef>Sell</th>
       <td mat-cell *matCellDef="let element">
         <button mat-button (click)="markPetAsSold(element)">
-          Mark as Sold
+          Sell
         </button>
       </td>
     </ng-container>

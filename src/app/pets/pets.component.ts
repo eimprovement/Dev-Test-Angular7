@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatDialog, MatSnackBar } from '@angular/material';
 
 import { Pet } from './models/pet.interface';
-import { PetsService } from './pets.service';
+import { PetsService } from './services/pets.service';
 import { finalize } from 'rxjs/operators';
 import { AlertYesNoComponent } from '@app/shared/alert-yes-no/alert-yes-no.component';
+import { PetFormComponent } from './modals/pet-form/pet-form.component';
+import { CreatePet } from './models/create-pet.interface';
 
 @Component({
   selector: 'app-pets',
@@ -39,23 +41,59 @@ export class PetsComponent implements OnInit {
       });
   }
 
+  addPet() {
+    const dialogRef = this.dialog.open(PetFormComponent, {
+      data: { name: '' }
+    });
+
+    dialogRef.afterClosed().subscribe((pet: CreatePet) => {
+      if (pet !== undefined && pet !== null) {
+        this._petsService.createPet(pet).subscribe(
+          (petCreated: Pet) => {
+            this._snackBar.open(`The pet ${petCreated.name} has been created successfully.`, 'Done', {
+              duration: this.successMessageDuration
+            });
+            this.addPetToDataSource(petCreated);
+          },
+          error => {
+            this._snackBar.open(`An error has occurred creating the pet. Please try again.`, 'Error', {
+              duration: this.errorMessageDuration
+            });
+          }
+        );
+      }
+    });
+  }
+
   markPetAsSold(pet: Pet) {
-    this._petsService
-      .markPetAsSold(pet)
-      .pipe(finalize(() => {}))
-      .subscribe(
-        (petResponse: Pet) => {
-          this._snackBar.open(`The pet ${pet.name} has been marked as sold successfully.`, 'Done', {
-            duration: this.successMessageDuration
-          });
-          //// TODO: refresh the UI list
-        },
-        error => {
-          this._snackBar.open(this.mapMarkPetAsSoldErrorMessage(pet, error.status), 'Error', {
-            duration: this.errorMessageDuration
-          });
-        }
-      );
+    const dialogRef = this.dialog.open(AlertYesNoComponent, {
+      data: {
+        title: 'Sell Pet',
+        content: `Do you want to sell the pet ${pet.name}?`,
+        hasNoButton: true
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._petsService
+          .markPetAsSold(pet)
+          .pipe(finalize(() => {}))
+          .subscribe(
+            (petResponse: Pet) => {
+              this._snackBar.open(`The pet ${pet.name} has been sold successfully.`, 'Done', {
+                duration: this.successMessageDuration
+              });
+              //// TODO: refresh the UI list
+            },
+            error => {
+              this._snackBar.open(this.mapMarkPetAsSoldErrorMessage(pet, error.status), 'Error', {
+                duration: this.errorMessageDuration
+              });
+            }
+          );
+      }
+    });
   }
 
   deletePet(pet: Pet) {
@@ -90,6 +128,12 @@ export class PetsComponent implements OnInit {
           );
       }
     });
+  }
+
+  private addPetToDataSource(pet: Pet) {
+    const currentDataSource = this.dataSource.data;
+    currentDataSource.push(pet);
+    this.dataSource.data = [...currentDataSource];
   }
 
   private mapMarkPetAsSoldErrorMessage(pet: Pet, status: number) {

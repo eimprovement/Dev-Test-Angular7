@@ -1,0 +1,20 @@
+<div class="alternative">
+  <h1 mat-dialog-title>Details</h1>
+  <div mat-dialog-content>
+    <div>
+      <form [formGroup]="form">
+        <mat-form-field>
+          <input matInput formControlName="name" placeholder="Name" />
+        </mat-form-field>
+      </form>
+    </div>
+    <div mat-dialog-actions>
+      <div>
+        <button mat-button (click)="this.sendBackInfo()" [disabled]="!form.valid">ACEPTAR</button>
+      </div>
+      <div>
+        <button mat-button (click)="this.onNoClick()">CANCELAR</button>
+      </div>
+    </div>
+  </div>
+</div>
