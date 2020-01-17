@@ -4,10 +4,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from '@app/material.module';
 import { LoaderComponent } from './loader/loader.component';
+import { AlertYesNoComponent } from './alert-yes-no/alert-yes-no.component';
 
 @NgModule({
   imports: [FlexLayoutModule, MaterialModule, CommonModule],
-  declarations: [LoaderComponent],
-  exports: [LoaderComponent]
+  declarations: [LoaderComponent, AlertYesNoComponent],
+  exports: [LoaderComponent, AlertYesNoComponent],
+  entryComponents: [AlertYesNoComponent]
 })
 export class SharedModule {}
