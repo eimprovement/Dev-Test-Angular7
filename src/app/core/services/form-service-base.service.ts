@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
+@Injectable({
+  providedIn: 'root'
+})
 export abstract class FormServiceBase {
   form: FormGroup;
   constructor(public fb: FormBuilder) {}

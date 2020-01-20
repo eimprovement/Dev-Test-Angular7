@@ -1,49 +1,71 @@
-<p>THE PETS ARE:</p>
+<div class="container">
+  <mat-card *ngIf="isLoading">
+    <mat-card-content class="loading-container">
+      <mat-card-subtitle>
+        <app-loader [isLoading]="isLoading" size="1.5"></app-loader>
+      </mat-card-subtitle>
+    </mat-card-content>
+  </mat-card>
 
-<app-loader [isLoading]="isLoading" size="1.5"></app-loader>
+  <div [hidden]="isLoading">
+    <mat-card>
+      <div class="flex-container" fxLayoutAlign="flex-end" fxLayout="row" fxLayout.xs="column">
+        <div fxFlex="20%" fxLayoutAlign="flex-end" fxLayout.xs="column">
+          <mat-form-field class="letter">
+            <input type="text" matInput placeholder="Search Pet" (keyup)="onSearch($event.target.value)" />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-card-content>
+        <div>
+          <mat-card class="background-card" fxLayoutAlign="flex-end" fxLayout="row" fxLayout.xs="column">
+            <div class="button-container">
+              <button (click)="addPet()" mat-raised-button>
+                <mat-icon matSuffix>add_circle_outline</mat-icon> Add Pet
+              </button>
+            </div>
+          </mat-card>
+        </div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="id">
+            <th class="letter" mat-header-cell *matHeaderCellDef>ID</th>
+            <td class="letter2" mat-cell *matCellDef="let element">{{ element.id }}</td>
+          </ng-container>
 
-<div class="mat-elevation-z8" [hidden]="isLoading">
-  <button mat-button (click)="addPet()">Add New Pet</button>
-  <div class="flex-container" fxLayoutAlign="flex-end" fxLayout="row" fxLayout.xs="column">
-    <div fxFlex="20%" fxLayoutAlign="flex-end" fxLayout.xs="column">
-      <mat-form-field class="letter">
-        <input type="text" matInput placeholder="Search" (keyup)="onSearch($event.target.value)" />
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-    </div>
+          <ng-container matColumnDef="name">
+            <th class="letter" mat-header-cell *matHeaderCellDef>Name</th>
+            <td class="letter2" mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="markAsSold">
+            <th class="letter" mat-header-cell *matHeaderCellDef>Sell</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-stroked-button (click)="markPetAsSold(element)">
+                Sell
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="deletePet">
+            <th class="letter" mat-header-cell *matHeaderCellDef>Delete</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button (click)="deletePet(element)">
+                <i class="material-icons icon-size">delete</i>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator
+          class="mat-elevation-z8"
+          [pageSizeOptions]="[10, 20, 30, 50, 200, 500, 1000]"
+          showFirstLastButtons
+        ></mat-paginator>
+      </mat-card-content>
+    </mat-card>
   </div>
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="id">
-      <th class="letter" mat-header-cell *matHeaderCellDef>ID</th>
-      <td class="letter2" mat-cell *matCellDef="let element">{{ element.id }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th class="letter" mat-header-cell *matHeaderCellDef>Name</th>
-      <td class="letter2" mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="markAsSold">
-      <th class="letter" mat-header-cell *matHeaderCellDef>Sell</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-button (click)="markPetAsSold(element)">
-          Sell
-        </button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="deletePet">
-      <th class="letter" mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-button (click)="deletePet(element)">
-          <i class="material-icons icon-size">delete</i>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <mat-paginator [pageSizeOptions]="[10, 20, 30, 50, 200, 500, 1000]" showFirstLastButtons></mat-paginator>
 </div>

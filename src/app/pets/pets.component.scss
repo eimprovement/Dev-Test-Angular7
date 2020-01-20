@@ -1,0 +1,57 @@
+table {
+  width: 100%;
+}
+
+// .background-card {
+//     background: rgb(183, 185, 183);
+//     padding: 1%;
+// }
+
+.button-container {
+  display: flex;
+  align-content: end;
+  align-items: end;
+  justify-content: end;
+  padding: 0.3%;
+}
+
+.button-container > div {
+  margin: 5px;
+  text-align: end;
+  line-height: 10px;
+  width: 60%;
+  text-align: end;
+  padding: 0.3%;
+}
+
+.container {
+  padding: 1rem;
+}
+
+.flex-container {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.flex-container > div {
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+}
+
+.letter {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: black;
+}
+
+.letter2 {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+.loading-container {
+  text-align: center;
+}

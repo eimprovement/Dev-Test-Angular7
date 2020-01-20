@@ -73,7 +73,7 @@ export class PetsComponent implements OnInit {
     const dialogRef = this.dialog.open(AlertYesNoComponent, {
       data: {
         title: 'Sell Pet',
-        content: `Do you want to sell the pet ${pet.name}?`,
+        content: `Do you want to sell the pet "${pet.name}"?`,
         hasNoButton: true
       }
     });
@@ -106,7 +106,7 @@ export class PetsComponent implements OnInit {
     const dialogRef = this.dialog.open(AlertYesNoComponent, {
       data: {
         title: 'Delete Pet',
-        content: `Do you want to delete the selected pet?`,
+        content: `Do you want to delete the pet "${pet.name}"?`,
         hasNoButton: true
       }
     });

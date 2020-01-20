@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PetsComponent } from './pets.component';
+import { PetsModule } from './pets.module';
 
 describe('PetsComponent', () => {
   let component: PetsComponent;
@@ -8,7 +11,7 @@ describe('PetsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PetsComponent]
+      imports: [PetsModule, HttpClientTestingModule, BrowserAnimationsModule]
     }).compileComponents();
   }));
 

@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material';
+import { MaterialModule } from '@app/material.module';
 
 import { AlertYesNoComponent } from './alert-yes-no.component';
+import { SharedModule } from '../shared.module';
 
 describe('AlertYesNoComponent', () => {
   let component: AlertYesNoComponent;
@@ -8,7 +12,8 @@ describe('AlertYesNoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AlertYesNoComponent]
+      imports: [MatDialogModule, MaterialModule, SharedModule],
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }, { provide: MatDialogRef, useValue: {} }]
     }).compileComponents();
   }));
 
